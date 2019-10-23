@@ -32,18 +32,11 @@ class ListsController extends AppController
      */
     public function view($id = null)
     {
-				$svrName = "Location: http://localhost";
-
-				$distName = $svrName + "/deeplearning";
-
-				return $this->redirect($distName);
-				/*
         $list = $this->Lists->get($id, [
             'contain' => []
         ]);
 
         $this->set('list', $list);
-				*/
     }
 
     /**
@@ -63,7 +56,8 @@ class ListsController extends AppController
             }
             $this->Flash->error(__('The list could not be saved. Please, try again.'));
         }
-        $this->set(compact('list'));
+
+				$this->set(compact('list'));
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php $this->assign("title", "使用技術まとめ"); ?>
 <h3>各ページの使用ライブラリ、フレームワークまとめ</h3>
+<?= $this->Html->link("プロジェクトの追加", ["action" => "add"]); ?>
 <table>
 	<tr>
 		<th>プロジェクト名</th>
