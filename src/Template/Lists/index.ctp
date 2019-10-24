@@ -18,6 +18,9 @@
 		</td>
 		<td>
 			<?= $this->Html->link("編集", ["action" => "edit", $lists->ProjectID]) ?>
+			<?= $this->Form->postLink("削除",
+						["action" => "delete", $lists->ProjectID],
+						["confirm" => "よろしいですか?"]) ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
