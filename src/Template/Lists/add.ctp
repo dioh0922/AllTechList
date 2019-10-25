@@ -13,3 +13,8 @@
 	echo $this->Form->button(__("プロジェクト情報の追加"));
 	echo $this->Form->end();
 ?>
+
+<?= $this->Html->link("TOPへ戻る",
+ 		["controller" => "Lists", 'action' => 'index'],
+		["class" => "button"]);
+?>

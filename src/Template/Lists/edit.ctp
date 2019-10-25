@@ -12,3 +12,7 @@
 	echo $this->Form->button(__("プロジェクト情報の編集"));
 	echo $this->Form->end();
 ?>
+<?= $this->Html->link("TOPへ戻る",
+ 		["controller" => "Lists", 'action' => 'index'],
+		["class" => "button"]);
+?>

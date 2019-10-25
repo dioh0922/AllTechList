@@ -18,8 +18,7 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $users = $this->paginate($this->Users);
-
+        $users = $this->Users->find("all");
         $this->set(compact('users'));
     }
 
@@ -48,11 +47,11 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                //$this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(["controller" => "Lists", 'action' => 'index']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
@@ -111,8 +110,14 @@ class UsersController extends AppController
 					$this->Auth->setUser($user);
 					return $this->redirect($this->Auth->redirectURL());
 				}
-				$this->Flash->error("ログイン情報が不正です。");
+				$this->Flash->error(__("ログイン情報が不正です。"));
 			}
+		}
+
+		public function logout()
+		{
+			$this->Flash->success(__("ログアウトしました"));
+			return $this->redirect($this->Auth->logout());
 		}
 
 		public function initialize()
@@ -121,9 +126,4 @@ class UsersController extends AppController
 			$this->Auth->allow(["logout", "add"]);
 		}
 
-		public function logout()
-		{
-			$this->Flash->success("ログアウトしました。");
-			return $this->redirect($this->Auth->logout());
-		}
 }
