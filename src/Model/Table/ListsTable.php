@@ -5,10 +5,8 @@ use Cake\Validation\Validator;
 
 class ListsTable extends Table{
 
-	public $useTable = "techlist";
-
 	public function initialize(array $config){
-		$this->table("techlist");	//既存のテーブルに向けておく
+		$this->setTable("techlist");	//既存のテーブルに向けておく
 		$this->addBehavior('Timestamp');
 	}
 

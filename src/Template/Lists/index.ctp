@@ -20,7 +20,7 @@
 		<td><?=$lists->ProjectName ?></td>
 		<td><?=$lists->TechName ?></td>
 		<td>
-			<?=$this->HTML->link($lists->URL, $lists->URL) ?>
+			<?=$this->Html->link($lists->URL, $lists->URL) ?>
 		</td>
 		<td>
 			<?= $this->Html->link("編集", ["action" => "edit", $lists->ProjectID]) ?>
