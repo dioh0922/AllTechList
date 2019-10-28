@@ -20,7 +20,7 @@ class ListsController extends AppController
     {
 				$lists = $this->Lists->find("all");
 
-        $this->set(compact('lists'));
+				$this->set(compact('lists'));
     }
 
     /**
@@ -48,13 +48,18 @@ class ListsController extends AppController
     {
         $list = $this->Lists->newEntity();
         if ($this->request->is('post')) {
-            $list = $this->Lists->patchEntity($list, $this->request->getData());
-            if ($this->Lists->save($list)) {
-                $this->Flash->success(__('The list has been saved.'));
+					//最新のIDに振りなおして記録する
+					$allList = $this->Lists->find("all");
+					$id = $allList->select(["ID" => $allList->func()->max("ProjectID")])->first()->ID + 1;
+          $list = $this->Lists->patchEntity($list, $this->request->getData());
+					$list->ProjectID = $id;
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The list could not be saved. Please, try again.'));
+          if ($this->Lists->save($list)) {
+              $this->Flash->success(__('The list has been saved.'));
+
+              return $this->redirect(['action' => 'index']);
+          }
+          $this->Flash->error(__('The list could not be saved. Please, try again.'));
         }
 
 				$this->set(compact('list'));

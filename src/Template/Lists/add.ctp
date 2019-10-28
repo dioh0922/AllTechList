@@ -5,7 +5,7 @@
 
 	echo $this->Form->control("ProjectID", [
 		"type" => "hidden",
-		"value" => 3
+		"value" => 999		//後で最新のIDに振りなおすため最大にしておく
 	]);
 	echo $this->Form->control("ProjectName");
 	echo $this->Form->control("TechName");

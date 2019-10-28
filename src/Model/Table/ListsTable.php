@@ -12,11 +12,11 @@ class ListsTable extends Table{
 
 	public function validationDefault(Validator $validator){
 		$validator
-			->allowEmptyString("ProjectName", false)	//入力必須(フォームにアイコンがつく)
+			->notEmpty("ProjectName", false)	//入力必須(フォームにアイコンがつく)
 			->minLength("ProjectName", 5)		//最小文字数(足りないと弾かれる)
 			->maxLength("ProjectName", 20)	//最大文字数(入力フォームで制限される)
 
-			->allowEmptyString("URL", false)
+			->notEmpty("URL", false)
 			->minLength("URL", 7);
 
 		return $validator;
