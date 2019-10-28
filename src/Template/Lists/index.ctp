@@ -33,15 +33,22 @@
 </table>
 
 <?= $this->Html->link("プロジェクトの追加", ["action" => "add"], ["class" => "button"]); ?>
+<?= $this->Html->link("ユーザーの追加",
+ 		["controller" => "Users", 'action' => 'add'],
+		["class" => "button", "style" => "margin-left: 5px;"]);
+?>
 </div>
 <br>
 <br>
 
 <?= $this->Html->link("ログアウト",
  		["controller" => "Users", 'action' => 'logout'],
-		["class" => "button"]);
+		["class" => "button",
+		"style" => "color: #FFFFFF;background-color: #882222;"]);
 ?>
-<?= $this->Html->link("ユーザーの追加",
- 		["controller" => "Users", 'action' => 'add'],
-		["class" => "button", "style" => "margin-left: 5px;"]);
+
+<br>
+<?= $this->Html->link("Webアプリメインに戻る", "../../index.html", [
+	"class" => "button",
+	"style" => "color: #FFFFFF;background-color: #228822;"])
 ?>
