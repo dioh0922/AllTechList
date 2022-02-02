@@ -10,6 +10,7 @@
 	echo $this->Form->control("ProjectName");
 	echo $this->Form->control("TechName");
 	echo $this->Form->control("URL");
+	echo $this->Form->control("CreateDate");
 	echo $this->Form->button(__("プロジェクト情報の追加"));
 	echo $this->Form->end();
 ?>

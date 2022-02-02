@@ -1,6 +1,5 @@
 <?php $this->assign("title", "使用技術まとめ"); ?>
 <h3>各ページの使用ライブラリ、フレームワークまとめ</h3>
-<h5>※ここのページの内容はほぼブログチュートリアルです</h5>
 <div style="
 			border: solid;
 			border-color: #3388FF;
@@ -13,6 +12,7 @@
 		<th>プロジェクト名</th>
 		<th>主な技術</th>
 		<th>URL</th>
+		<th>作成時期</th>
 		<th>操作</th>
 	</tr>
 	<?php foreach ($lists as $lists): ?>
@@ -22,6 +22,7 @@
 		<td>
 			<?=$this->Html->link($lists->URL, $lists->URL) ?>
 		</td>
+		<td><?=$lists->CreateDate->i18nFormat('yyyy年MM月dd日') ?></td>
 		<td>
 			<?= $this->Html->link("編集", ["action" => "edit", $lists->ProjectID]) ?>
 			<?= $this->Form->postLink("削除",
