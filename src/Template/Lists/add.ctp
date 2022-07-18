@@ -7,7 +7,7 @@
 		"type" => "hidden",
 		"value" => 999		//後で最新のIDに振りなおすため最大にしておく
 	]);
-	echo $this->Form->control("ProjectName");
+	echo $this->Form->control("ProjectName", ["placeholder" => "3～20文字"]);
 	echo $this->Form->control("TechName");
 	echo $this->Form->control("URL");
 	echo $this->Form->control("CreateDate");
