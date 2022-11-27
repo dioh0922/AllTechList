@@ -28,6 +28,11 @@
 			<?= $this->Form->postLink("削除",
 						["action" => "delete", $lists->ProjectID],
 						["confirm" => "よろしいですか?"]) ?>
+			<?=$this->Html->link(
+					$this->Html->image("test", ["alt" => "test"]),
+					"https://github.com/dioh0922/".$lists->Repository,
+					["escape" => false]
+				) ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -49,7 +54,7 @@
 ?>
 
 <br>
-<?= $this->Html->link("Webアプリメインに戻る", "../../index.html", [
+<?= $this->Html->link("Webアプリメインに戻る", "../../", [
 	"class" => "button",
 	"style" => "color: #FFFFFF;background-color: #228822;"])
 ?>
