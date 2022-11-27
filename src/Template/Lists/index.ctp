@@ -54,7 +54,7 @@
 ?>
 
 <br>
-<?= $this->Html->link("Webアプリメインに戻る", "../../index.html", [
+<?= $this->Html->link("Webアプリメインに戻る", "../../", [
 	"class" => "button",
 	"style" => "color: #FFFFFF;background-color: #228822;"])
 ?>
