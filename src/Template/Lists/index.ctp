@@ -28,6 +28,11 @@
 			<?= $this->Form->postLink("削除",
 						["action" => "delete", $lists->ProjectID],
 						["confirm" => "よろしいですか?"]) ?>
+			<?=$this->Html->link(
+					$this->Html->image("test", ["alt" => "test"]),
+					"https://github.com/dioh0922/".$lists->GitLink,
+					["escape" => false]
+				) ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
