@@ -30,7 +30,7 @@
 						["confirm" => "よろしいですか?"]) ?>
 			<?=$this->Html->link(
 					$this->Html->image("test", ["alt" => "test"]),
-					"https://github.com/dioh0922/".$lists->GitLink,
+					"https://github.com/dioh0922/".$lists->Repository,
 					["escape" => false]
 				) ?>
 		</td>
