@@ -28,11 +28,13 @@
 			<?= $this->Form->postLink("削除",
 						["action" => "delete", $lists->ProjectID],
 						["confirm" => "よろしいですか?"]) ?>
-			<?=$this->Html->link(
-					$this->Html->image("../../git_icon.png", ["alt" => "github icon", "width" => "15%", "height" => "15%"]),
-					"https://github.com/dioh0922/".$lists->Repository,
-					["escape" => false]
-				) ?>
+			<?php if($lists->Repository != null){ ?>
+				<?=$this->Html->link(
+						$this->Html->image("../../git_icon.png", ["alt" => "github icon", "width" => "15%", "height" => "15%"]),
+						"https://github.com/dioh0922/".$lists->Repository,
+						["escape" => false]
+					) ?>
+				<?php } ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
