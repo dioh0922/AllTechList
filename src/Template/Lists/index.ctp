@@ -29,7 +29,7 @@
 						["action" => "delete", $lists->ProjectID],
 						["confirm" => "よろしいですか?"]) ?>
 			<?=$this->Html->link(
-					$this->Html->image("../../git_icon.png", ["alt" => "github icon"]),
+					$this->Html->image("../../git_icon.png", ["alt" => "github icon", "width" => "15%", "height" => "15%"]),
 					"https://github.com/dioh0922/".$lists->Repository,
 					["escape" => false]
 				) ?>
