@@ -5,12 +5,12 @@ use Cake\Validation\Validator;
 
 class ListsTable extends Table{
 
-	public function initialize(array $config){
+	public function initialize(array $config):void{
 		$this->setTable("techlist");	//既存のテーブルに向けておく
 		$this->addBehavior('Timestamp');
 	}
 
-	public function validationDefault(Validator $validator){
+	public function validationDefault(Validator $validator): Validator{
 		$validator
 			->notEmpty("ProjectName", false)	//入力必須(フォームにアイコンがつく)
 			->minLength("ProjectName", 3)		//最小文字数(足りないと弾かれる)
