@@ -45,9 +45,9 @@ class UsersController extends AppController
      */
     public function add()
     {
-        $user = $this->Users->newEntity();
+        $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
+            $user = $this->Users->patchEntity($user, $this->getRequest()->getData());
             if ($this->Users->save($user)) {
                 //$this->Flash->success(__('The user has been saved.'));
 
@@ -120,7 +120,7 @@ class UsersController extends AppController
 			return $this->redirect($this->Auth->logout());
 		}
 
-		public function initialize()
+		public function initialize(): void
 		{
 			parent::initialize();
 			$this->Auth->allow(["logout", "add"]);
