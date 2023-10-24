@@ -102,28 +102,32 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-		public function login()
-		{
-			if($this->request->is("post")){
-				$user = $this->Auth->identify();
-				if($user){
-					$this->Auth->setUser($user);
-					return $this->redirect($this->Auth->redirectURL());
-				}
-				$this->Flash->error(__("ログイン情報が不正です。"));
-			}
-		}
+    public function login()
+    {
+        if($this->request->is("post")){
+            $user = $this->Auth->identify();
+            if($user){
+                $this->Auth->setUser($user);
+                if(!empty($this->redirect($this->Auth->redirectURL()))){
+                    return $this->redirect($this->Auth->redirectURL());
+                }else {
+                    return $this->redirect("/lists");
+                }
+            }
+            $this->Flash->error(__("ログイン情報が不正です。"));
+        }
+    }
 
-		public function logout()
-		{
-			$this->Flash->success(__("ログアウトしました"));
-			return $this->redirect($this->Auth->logout());
-		}
+    public function logout()
+    {
+        $this->Flash->success(__("ログアウトしました"));
+        return $this->redirect($this->Auth->logout());
+    }
 
-		public function initialize(): void
-		{
-			parent::initialize();
-			$this->Auth->allow(["logout", "add"]);
-		}
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->Auth->allow(["logout", "add"]);
+    }
 
 }
