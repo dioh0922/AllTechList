@@ -46,7 +46,7 @@ class ListsController extends AppController
      */
     public function add()
     {
-        $list = $this->Lists->newEntity();
+        $list = $this->Lists->newEmptyEntity();
         if ($this->request->is('post')) {
 					//最新のIDに振りなおして記録する
 					$allList = $this->Lists->find("all");
