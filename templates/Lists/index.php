@@ -49,6 +49,13 @@
 <br>
 <br>
 
+<?php if(empty($auth)){ ?>
+	<?= $this->Html->link("ログイン",
+	["controller" => "Users", "action" => "login"],
+	["class" => "button", "style" => "color:#FFFFFF;background-color: #222288"
+	]) ?>
+<?php } ?>
+
 <?= $this->Html->link("ログアウト",
  		["controller" => "Users", 'action' => 'logout'],
 		["class" => "button",
