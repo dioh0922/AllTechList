@@ -130,4 +130,33 @@ class UsersController extends AppController
         $this->Auth->allow(["logout", "add"]);
     }
 
+    /**
+     * 管理用画面
+     */
+    public function admin(){
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            $userId = $data["userID"];
+            $list = $this->Users->get($userId, [
+                'contain' => []
+            ]);
+            $list->accept = 0;
+            if ($this->Users->save($list)) {
+                $this->Flash->success(__('ユーザを無効にしました'));
+
+                return $this->redirect(['action' => 'admin']);
+            }
+            $this->Flash->error(__('The list could not be saved. Please, try again.'));
+
+            var_dump($list);
+        }
+        $users = $this->Users->find("all");
+        $this->set(compact('users'));
+        
+    }
+
+    public function disable(){
+
+    }
+
 }
