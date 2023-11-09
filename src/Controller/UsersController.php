@@ -146,16 +146,18 @@ class UsersController extends AppController
                 'contain' => []
             ]);
             $list->accept = 0;
-            if ($this->Users->save($list)) {
-                //TODO: 無効にするユーザでログインしてたらログアウトさせる
+            $logined = $this->Auth->user();
+            if($data["userID"] === $logined["userID"]){
+                $this->Flash->error(__('ログインユーザは無効にできません'));
+                return $this->redirect(['action' => 'admin']);
+            }
 
+            if ($this->Users->save($list)) {
                 $this->Flash->success(__('ユーザを無効にしました'));
 
                 return $this->redirect(['action' => 'admin']);
             }
             $this->Flash->error(__('The list could not be saved. Please, try again.'));
-
-            var_dump($list);
         }
         $users = $this->Users->find("all");
         $this->set(compact('users'));
