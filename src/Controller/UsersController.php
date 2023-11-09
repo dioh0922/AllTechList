@@ -106,12 +106,17 @@ class UsersController extends AppController
     {
         if($this->request->is("post")){
             $user = $this->Auth->identify();
-            if($user){
-                $this->Auth->setUser($user);
-                if(!empty($this->redirect($this->Auth->redirectURL()))){
-                    return $this->redirect($this->Auth->redirectURL());
-                }else {
-                    return $this->redirect("/lists");
+            $request = $this->request->getData();
+            $accept = $this->Users->get($request["userID"]);
+            if($accept["accept"] === 1){
+
+                if($user){
+                    $this->Auth->setUser($user);
+                    if(!empty($this->redirect($this->Auth->redirectURL()))){
+                        return $this->redirect($this->Auth->redirectURL());
+                    }else {
+                        return $this->redirect("/lists");
+                    }
                 }
             }
             $this->Flash->error(__("ログイン情報が不正です。"));
@@ -142,6 +147,8 @@ class UsersController extends AppController
             ]);
             $list->accept = 0;
             if ($this->Users->save($list)) {
+                //TODO: 無効にするユーザでログインしてたらログアウトさせる
+
                 $this->Flash->success(__('ユーザを無効にしました'));
 
                 return $this->redirect(['action' => 'admin']);
@@ -153,10 +160,6 @@ class UsersController extends AppController
         $users = $this->Users->find("all");
         $this->set(compact('users'));
         
-    }
-
-    public function disable(){
-
     }
 
 }
