@@ -54,6 +54,11 @@
 	["controller" => "Users", "action" => "login"],
 	["class" => "button", "style" => "color:#FFFFFF;background-color: #222288"
 	]) ?>
+<?php }else{ ?>
+	<?= $this->Html->link("管理画面",
+	["controller" => "Users", "action" => "admin"],
+	["class" => "button", "style" => "background-color:grey"]
+	)?>
 <?php } ?>
 
 <?= $this->Html->link("ログアウト",
