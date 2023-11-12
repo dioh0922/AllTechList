@@ -18,7 +18,7 @@ class ListsController extends AppController
      */
     public function index()
     {
-        $lists = $this->Lists->find("all");
+        $lists = $this->Lists->find("all", ["order" => ["Lists.CreateDate DESC"]]);
         $this->set(compact('lists'));
         //ログイン情報も表示側に渡す
         $this->set('auth',$this->Auth->user() );
