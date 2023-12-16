@@ -20,7 +20,16 @@
 		<td><?=$lists->ProjectName ?></td>
 		<td><?=$lists->TechName ?></td>
 		<td>
-			<?=$this->Html->link($lists->URL, $lists->URL) ?>
+			<?php 
+				// \/が入っていればいったんリンクにする
+				// https://~~の直か /../~~の相対パスするためゆるくしておく
+				if(preg_match_all("/.*\/.*/", $lists->URL)){
+					echo $this->Html->link($lists->URL, $lists->URL);
+				}else{
+					echo $lists->URL;
+				}
+			?>
+
 		</td>
 		<td><?=$lists->CreateDate->i18nFormat('yyyy年MM月dd日') ?></td>
 		<td>
