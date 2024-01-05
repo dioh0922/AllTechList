@@ -18,9 +18,11 @@ class ListsController extends AppController
      */
     public function index()
     {
-				$lists = $this->Lists->find("all");
+        $lists = $this->Lists->find("all", ["order" => ["Lists.CreateDate DESC"]]);
+        $this->set(compact('lists'));
+        //ログイン情報も表示側に渡す
+        $this->set('auth',$this->Auth->user() );
 
-				$this->set(compact('lists'));
     }
 
     /**
@@ -46,23 +48,23 @@ class ListsController extends AppController
      */
     public function add()
     {
-        $list = $this->Lists->newEntity();
+        $list = $this->Lists->newEmptyEntity();
         if ($this->request->is('post')) {
 					//最新のIDに振りなおして記録する
-					$allList = $this->Lists->find("all");
-					$id = $allList->select(["ID" => $allList->func()->max("ProjectID")])->first()->ID + 1;
-          $list = $this->Lists->patchEntity($list, $this->request->getData());
+            $allList = $this->Lists->find("all");
+            $id = $allList->select(["ID" => $allList->func()->max("ProjectID")])->first()->ID + 1;
+            $list = $this->Lists->patchEntity($list, $this->request->getData());
 					$list->ProjectID = $id;
 
           if ($this->Lists->save($list)) {
               $this->Flash->success(__('The list has been saved.'));
 
-              return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'index']);
           }
           $this->Flash->error(__('The list could not be saved. Please, try again.'));
         }
 
-				$this->set(compact('list'));
+        $this->set(compact('list'));
     }
 
     /**

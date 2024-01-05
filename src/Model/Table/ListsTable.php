@@ -5,19 +5,16 @@ use Cake\Validation\Validator;
 
 class ListsTable extends Table{
 
-	public function initialize(array $config){
+	public function initialize(array $config):void{
 		$this->setTable("techlist");	//既存のテーブルに向けておく
 		$this->addBehavior('Timestamp');
 	}
 
-	public function validationDefault(Validator $validator){
+	public function validationDefault(Validator $validator): Validator{
 		$validator
-			->notEmpty("ProjectName", false)	//入力必須(フォームにアイコンがつく)
+			->notEmptyString("ProjectName", false)	//入力必須(フォームにアイコンがつく)
 			->minLength("ProjectName", 3)		//最小文字数(足りないと弾かれる)
-			->maxLength("ProjectName", 20)	//最大文字数(入力フォームで制限される)
-
-			->notEmpty("URL", false)
-			->minLength("URL", 7);
+			->maxLength("ProjectName", 20);		//最大文字数(入力フォームで制限される)
 
 		return $validator;
 	}

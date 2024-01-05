@@ -7,7 +7,7 @@ class UsersTable extends Table{
 
 	//public $useTable = "login";
 
-	public function initialize(array $config){
+	public function initialize(array $config): void {
 		$this->setTable("login");	//既存のテーブルに向けておく
 		$this->addBehavior('Timestamp');
 	}

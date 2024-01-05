@@ -45,9 +45,9 @@ class UsersController extends AppController
      */
     public function add()
     {
-        $user = $this->Users->newEntity();
+        $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
+            $user = $this->Users->patchEntity($user, $this->getRequest()->getData());
             if ($this->Users->save($user)) {
                 //$this->Flash->success(__('The user has been saved.'));
 
@@ -102,28 +102,66 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-		public function login()
-		{
-			if($this->request->is("post")){
-				$user = $this->Auth->identify();
-				if($user){
-					$this->Auth->setUser($user);
-					return $this->redirect($this->Auth->redirectURL());
-				}
-				$this->Flash->error(__("ログイン情報が不正です。"));
-			}
-		}
+    public function login()
+    {
+        if($this->request->is("post")){
+            $user = $this->Auth->identify();
+            $request = $this->request->getData();
+            $accept = $this->Users->get($request["userID"]);
+            if($accept["accept"] === 1){
 
-		public function logout()
-		{
-			$this->Flash->success(__("ログアウトしました"));
-			return $this->redirect($this->Auth->logout());
-		}
+                if($user){
+                    $this->Auth->setUser($user);
+                    if(!empty($this->redirect($this->Auth->redirectURL()))){
+                        return $this->redirect($this->Auth->redirectURL());
+                    }else {
+                        return $this->redirect("/lists");
+                    }
+                }
+            }
+            $this->Flash->error(__("ログイン情報が不正です。"));
+        }
+    }
 
-		public function initialize()
-		{
-			parent::initialize();
-			$this->Auth->allow(["logout", "add"]);
-		}
+    public function logout()
+    {
+        $this->Flash->success(__("ログアウトしました"));
+        return $this->redirect($this->Auth->logout());
+    }
+
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->Auth->allow(["logout", "add"]);
+    }
+
+    /**
+     * 管理用画面
+     */
+    public function admin(){
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            $userId = $data["userID"];
+            $list = $this->Users->get($userId, [
+                'contain' => []
+            ]);
+            $list->accept = 0;
+            $logined = $this->Auth->user();
+            if($data["userID"] === $logined["userID"]){
+                $this->Flash->error(__('ログインユーザは無効にできません'));
+                return $this->redirect(['action' => 'admin']);
+            }
+
+            if ($this->Users->save($list)) {
+                $this->Flash->success(__('ユーザを無効にしました'));
+
+                return $this->redirect(['action' => 'admin']);
+            }
+            $this->Flash->error(__('The list could not be saved. Please, try again.'));
+        }
+        $users = $this->Users->find("all");
+        $this->set(compact('users'));
+        
+    }
 
 }

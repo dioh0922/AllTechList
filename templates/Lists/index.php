@@ -20,7 +20,16 @@
 		<td><?=$lists->ProjectName ?></td>
 		<td><?=$lists->TechName ?></td>
 		<td>
-			<?=$this->Html->link($lists->URL, $lists->URL) ?>
+			<?php 
+				// \/が入っていればいったんリンクにする
+				// https://~~の直か /../~~の相対パスするためゆるくしておく
+				if(preg_match_all("/.*\/.*/", $lists->URL)){
+					echo $this->Html->link($lists->URL, $lists->URL);
+				}else{
+					echo $lists->URL;
+				}
+			?>
+
 		</td>
 		<td><?=$lists->CreateDate->i18nFormat('yyyy年MM月dd日') ?></td>
 		<td>
@@ -48,6 +57,18 @@
 </div>
 <br>
 <br>
+
+<?php if(empty($auth)){ ?>
+	<?= $this->Html->link("ログイン",
+	["controller" => "Users", "action" => "login"],
+	["class" => "button", "style" => "color:#FFFFFF;background-color: #222288"
+	]) ?>
+<?php }else{ ?>
+	<?= $this->Html->link("管理画面",
+	["controller" => "Users", "action" => "admin"],
+	["class" => "button", "style" => "background-color:grey"]
+	)?>
+<?php } ?>
 
 <?= $this->Html->link("ログアウト",
  		["controller" => "Users", 'action' => 'logout'],
