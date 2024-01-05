@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SVR_IP }}
+          username: ${{ secrets.DEPLOY_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+          script: |
+            cd ${{ secrets.SVR_DIR }}
+            git pull
+            composer install
